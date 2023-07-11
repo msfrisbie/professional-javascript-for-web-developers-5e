@@ -1,0 +1,1 @@
+Of course, this request will not be generated until the HTMLElement is attached to the DOM, and therefore not until this script itself runs. By default, scripts that are created in this fashion are asynchronous. 

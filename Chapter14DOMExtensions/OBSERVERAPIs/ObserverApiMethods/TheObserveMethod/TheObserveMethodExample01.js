@@ -1,0 +1,1 @@
+fakeObserver.observe(document.body);

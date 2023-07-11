@@ -1,0 +1,18 @@
+// Generate a vertical column of 30 divs
+document.body.innerHTML = `
+  <div style="height: 100px; width: 100px;"></div>
+`.repeat(30);
+
+let observer = new IntersectionObserver(
+  (entries) => {
+    entries.map((entry) => {
+      // Change between blue and red based on visibility
+      entry.target.style.backgroundColor = entry.isIntersecting
+        ? "blue"
+        : "red";
+    });
+  },
+  // Only fire a callback when a <div> crosses half visible
+  { threshold: 0.5 }
+);
+[...document.querySelectorAll("div")].map((el) => observer.observe(el));

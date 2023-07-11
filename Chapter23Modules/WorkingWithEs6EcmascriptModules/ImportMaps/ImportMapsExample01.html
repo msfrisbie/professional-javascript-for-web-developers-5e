@@ -1,0 +1,16 @@
+<html>
+  <head>
+    <script type="module">
+      import _ from 'lodash';
+
+      const numbers = [1, 2, 3, 4, 5];
+      const evens = _.filter(numbers, n => n % 2 === 0);
+
+      console.log(evens); 
+      // [2, 4]
+    </script>
+  </head>
+  <body>
+    <div id="root"></div>
+  </body>
+</html>

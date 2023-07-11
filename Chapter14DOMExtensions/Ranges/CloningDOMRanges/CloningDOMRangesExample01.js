@@ -1,0 +1,1 @@
+let newRange = range.cloneRange();
