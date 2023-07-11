@@ -1,0 +1,6 @@
+eval(`alert("foo")`);
+
+new Function(`alert("bar")`)()
+
+setTimeout(`alert("baz")`, 1000);
+document.write(`<script>alert("qux")</script>`);

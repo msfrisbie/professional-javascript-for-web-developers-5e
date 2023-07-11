@@ -67,7 +67,7 @@ def guess_file_extension(buffer):
 
 
 DOCX_FILES = [f'''src/c{'0' if x < 10 else ''}{x}.docx''' for x in range(
-    1, NUM_CHAPTERS)] + [f'src/appendix{x}.docx' for x in list('ABCD')]
+    1, NUM_CHAPTERS + 1)] + [f'src/appendix{x}.docx' for x in list('ABCD')]
 
 for filename in DOCX_FILES:
     print(f'Extracting {filename}')
@@ -93,10 +93,12 @@ for filename in DOCX_FILES:
         except Exception as e:
             pass
 
-        if attr == 'H1' or attr == 'H2' or attr == 'H3' or attr == 'H4' or attr == 'ChapterTitle' or attr == 'AppendixTitle':
+        if attr == 'H1' or attr == 'H2' or attr == 'H3' or attr == 'H4' or attr == 'ChapterTitle' or attr == 'AppendixTitle' or attr == 'MatterTitle':
+
             inside_header_tag = True
             inside_code_snippet = False
-            if attr == 'ChapterTitle' or attr == 'AppendixTitle':
+            
+            if attr == 'ChapterTitle' or attr == 'AppendixTitle' or attr == 'MatterTitle':
                 expected_stack_height = 1
             elif attr == 'H1':
                 expected_stack_height = 2
@@ -115,6 +117,7 @@ for filename in DOCX_FILES:
             inside_header_tag = False
 
             title = convert_title_to_directory_name(header_text_buffer)
+
             if expected_stack_height == len(stack) + 1:
                 pass
             elif expected_stack_height == len(stack):
@@ -123,7 +126,7 @@ for filename in DOCX_FILES:
                 while expected_stack_height <= len(stack):
                     stack.pop()
             else:
-                raise 'This should never happen!'
+                raise f'This should never happen! stack:{len(stack)} expected:{expected_stack_height}'
 
             stack.append({
                 'title': title,
@@ -151,7 +154,6 @@ for filename in DOCX_FILES:
 
         if inside_header_tag:
             if elem.text is not None:
-                print(elem.text)
                 header_text_buffer += elem.text if not elem.text.isupper() else elem.text.title()
 
         if inside_code_snippet:
