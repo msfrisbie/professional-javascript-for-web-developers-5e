@@ -8,4 +8,4 @@
  
  <pre><code>BigInt.asUIntN(bits, <b>bigint</b>)</code></pre>
 
- (Thanks to Q. Wang)
+ (Thanks to Qirui W.)
